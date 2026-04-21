@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# react-template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+基于 React 19 + TypeScript + Vite 的前端项目模板，开箱即用。
 
-Currently, two official plugins are available:
+## 技术栈
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| 分类 | 技术 |
+|------|------|
+| 框架 | React 19 |
+| 语言 | TypeScript 6 |
+| 构建工具 | Vite 8 |
+| 路由 | React Router 7 |
+| 状态管理 | Zustand 5 |
+| 代码规范 | ESLint + @antfu/eslint-config |
+| E2E 测试 | Playwright |
+| 覆盖率 | vite-plugin-istanbul + nyc |
+| Git 规范 | simple-git-hooks + commitlint（Conventional Commits）|
 
-## React Compiler
+## 项目结构
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── assets/        # 静态资源
+├── layouts/       # 布局组件
+├── pages/         # 页面组件（Home、About、NotFound）
+├── router/        # 路由配置
+├── store/         # Zustand 状态
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 快速开始
 
-```js
-import reactDom from 'eslint-plugin-react-dom'
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
+```bash
+# 安装依赖
+pnpm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 启动开发服务器
+pnpm dev
+
+# 构建生产产物
+pnpm build
+
+# 预览构建结果
+pnpm preview
+```
+
+## 代码规范
+
+```bash
+# 检查
+pnpm lint
+
+# 自动修复
+pnpm lint:fix
+```
+
+提交信息遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范，由 commitlint 在 `commit-msg` 阶段自动校验。
+
+## 测试
+
+```bash
+# 运行 E2E 测试
+pnpm test:e2e
+
+# 打开 Playwright UI 模式
+pnpm test:e2e:ui
+
+# 生成覆盖率报告
+pnpm coverage:report
 ```
